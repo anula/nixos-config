@@ -7,12 +7,13 @@
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
-    vivaldi
-    
     # Terminal QoL programs
     tmux
     tree
     htop
+
+    # Browser
+    vivaldi
   ];
 
   # Enable home-manager CLI
