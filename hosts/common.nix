@@ -120,6 +120,14 @@
     };
   };
 
+  # Home manager global settings
+  home-manager = {
+    # Home-manager can control configs for progams installed on
+    # system level.
+    useGlobalPkgs = true;
+    users.anula = import ../home/anula.nix;
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
