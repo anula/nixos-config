@@ -19,6 +19,13 @@
     spotify
   ];
 
+  # Default browser
+  xdg.mimeApps.defaultApplications = {
+    "text/html" = "vivaldi-stable.desktop";
+    "x-scheme-handler/http" = "vivaldi-stable.desktop";
+    "x-scheme-handler/https" = "vivaldi-stable.desktop";
+  };
+
   # Enable home-manager CLI
   programs.home-manager.enable = true;
 }
