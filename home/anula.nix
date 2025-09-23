@@ -14,6 +14,9 @@
 
     # Browser
     vivaldi
+
+    # Entertainment
+    spotify
   ];
 
   # Enable home-manager CLI
