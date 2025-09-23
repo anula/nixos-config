@@ -10,15 +10,19 @@ Full config for my personal NixOS installation, managed with Flakes and Home Man
 
   * `common.nix`: Base settings shared by all hosts.
 
-  * `kawerna/`: A directory for the "kawerna" host (hosts are distinguished by their hostnames).
+  * `<hostname>/`: A directory for the `<hostname>` host (hosts are distinguished by their hostnames).
 
     * `default.nix`: The main configuration for the host.
 
     * `hardware.nix`: The machine-specific hardware configuration the host.
 
-* **`home/`**: Contains user-level configurations.
+* **`users/`**: Contains user-level configurations.
 
-* **`dotfiles/`**: Raw dotfiles used by the Home Manager.
+  * `<username>`: A directory for user `<username>`
+
+    * `default.nix`: The main home manager config for the user.
+
+    * `res/`: Directory with additional resources (eg. raw dotfiles) for the user.
 
 ## How to Deploy on a New Machine
 
@@ -47,8 +51,7 @@ This procedure will take over a fresh NixOS installation and apply the configura
 4. **Run the Build**: From the root of the repository, run the build command for the new host:
 
    ```
-   cd ~/.nix-config
-   sudo nixos-rebuild switch --flake .#new-machine
+   sudo nixos-rebuild switch --flake ~/.nix-config#new-machine
    ```
 
 5. **Commit the Changes**

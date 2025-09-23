@@ -127,7 +127,7 @@
     # Home-manager can control configs for progams installed on
     # system level.
     useGlobalPkgs = true;
-    users.anula = import ../home/anula.nix;
+    users.anula = import ../users/anula/default.nix;
   };
 
   # Open ports in the firewall.
