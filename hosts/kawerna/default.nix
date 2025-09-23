@@ -12,12 +12,27 @@
   # Set the hostname for this machine.
   networking.hostName = "kawerna";
 
+  # Handling Steam on system level, since it needs system-level
+  # stuff like drivers and firewall rules.
+  programs.steam = {
+    enable = true;
+    # Open ports in the firewall for Steam Remote Play
+    remotePlay.openFirewall = true;
+    # Open ports in the firewall for Source Dedicated Server
+    dedicatedServer.openFirewall = true;
+    # Open ports in the firewall for Steam Local Network Game Transfers
+    localNetworkGameTransfers.openFirewall = true;
+  };
+
   # === Graphics ===
   # Lots based on https://nixos.wiki/wiki/Nvidia
 
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
+
+    # Might be needed for some Steam games.
+    enable32Bit = true;
   };
 
   # Load nvidia driver for Xorg and Wayland

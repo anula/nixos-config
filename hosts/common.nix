@@ -97,7 +97,9 @@
     jujutsu
     vim 
     wget
+
     parted
+    usbutils
   ];
 
   environment.variables.EDITOR = "vim";
