@@ -27,6 +27,10 @@
     "x-scheme-handler/https" = "vivaldi-stable.desktop";
   };
 
+  home.file.".config/tmux/tmux.conf" = {
+    source = ./res/tmux.conf;
+  };
+
   # Enable home-manager CLI
   programs.home-manager.enable = true;
 
