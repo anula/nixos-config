@@ -35,6 +35,21 @@
     source = ./res/tmux.conf;
   };
 
+  # Persistent `nix develop` per directory 
+  # See: https://github.com/nix-community/nix-direnv
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  home.file.".vimrc" = {
+    source = ./res/vimrc;
+  };
+  home.file.".vim/bundle/Vundle.vim" = {
+    source = pkgs.vimPlugins.Vundle-vim;
+    recursive = true; # Necessary because we are linking a whole directory
+  };
+
   # Enable home-manager CLI
   programs.home-manager.enable = true;
 }

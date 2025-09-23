@@ -77,10 +77,6 @@
     isNormalUser = true;
     description = "anula";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      kdePackages.kate
-    #  thunderbird
-    ];
   };
 
   # Install firefox.
@@ -95,8 +91,10 @@
   environment.systemPackages = with pkgs; [
     git
     jujutsu
-    vim 
     wget
+    (vim_configurable.override {
+      python3 = python3;
+    })
 
     parted
     usbutils
