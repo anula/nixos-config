@@ -3,6 +3,7 @@
 {
   imports = [
     ./gemini-sandboxed.nix
+    ./neovim.nix
     ./update_notifier.nix
   ];
 

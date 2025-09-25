@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   # Bootloader.
@@ -125,7 +125,12 @@
     # Home-manager can control configs for progams installed on
     # system level.
     useGlobalPkgs = true;
-    users.anula = import ../users/anula/default.nix;
+    users.anula = {pkgs, ...}: {
+      imports = [
+        inputs.nixvim.homeManagerModules.nixvim
+        ../users/anula/default.nix
+      ];
+    };
   };
 
   # Open ports in the firewall.
