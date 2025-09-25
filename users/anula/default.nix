@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./gemini-sandboxed.nix
     ./update_notifier.nix
   ];
 
