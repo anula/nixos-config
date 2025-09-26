@@ -7,6 +7,7 @@
 {
   programs.nixvim = {
     enable = true;
+    colorscheme = "unokai";
 
     # -------------------------------------------------------------------------
     # General Editor Settings
@@ -37,6 +38,11 @@
 
       # Disable mouse support.
       mouse = "";
+    };
+
+    globals = {
+      mapleader = " ";
+      maplocalleader = " ";
     };
 
     # -------------------------------------------------------------------------
@@ -71,6 +77,8 @@
     # -------------------------------------------------------------------------
     # Color Schemes
     # -------------------------------------------------------------------------
+    # This only enables potential color scheme plugins.
+    # -------------------------------------------------------------------------
     colorschemes.base16 = {
       # base16 is a "template" on which many colorschemes are based.
       enable = true;
@@ -99,13 +107,15 @@
 
       # --- Multi-Cursor Support ---
       # Enables multi-cursor editing.
-      multicursors = {
+      visual-multi = {
         enable = true;
       };
 
       # --- Surround Functionality ---
       # A modern replacement for vim-surround, written in Lua.
-      # Examples: ysiw" (surround word in quotes), cs"' (change single to double quotes)
+      # Examples:
+      #  * ysiw" (surround word in quotes)
+      #  * cs"' (change single to double quotes)
       nvim-surround = {
         enable = true;
       };
