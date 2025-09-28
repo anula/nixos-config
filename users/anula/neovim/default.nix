@@ -2,12 +2,20 @@
 # A custom NeoVim configuration for NixOS using nixvim.
 # https://github.com/nix-community/nixvim
 
-{ pkgs, ... }:
+{ ... }:
 
 {
+  imports = [
+    ./coding.nix
+  ];
   programs.nixvim = {
     enable = true;
     colorscheme = "unokai";
+
+    # Make nvim the default editor and open even on `vi` and `vim`.
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
 
     # -------------------------------------------------------------------------
     # General Editor Settings
@@ -46,69 +54,34 @@
     };
 
     # -------------------------------------------------------------------------
-    # Custom Key Mappings
-    # -------------------------------------------------------------------------
-    # TODO: These are untested so far.
-    #keymaps = [
-    #  # --- LSP Formatting ---
-    #  {
-    #    # Format the entire file with Ctrl+f in Normal mode.
-    #    key = "<C-f>";
-    #    mode = "n";
-    #    action = "<cmd>lua vim.lsp.buf.format({ async = true })<CR>";
-    #    options = {
-    #      silent = true;
-    #      desc = "LSP: Format buffer";
-    #    };
-    #  }
-    #  {
-    #    # Format the selected text with Ctrl+k in Visual mode.
-    #    key = "<C-k>";
-    #    mode = "v";
-    #    action = "<cmd>lua vim.lsp.buf.format()<CR>";
-    #    options = {
-    #      silent = true;
-    #      desc = "LSP: Format selection";
-    #    };
-    #  }
-    #];
-
-
-    # -------------------------------------------------------------------------
     # Color Schemes
     # -------------------------------------------------------------------------
     # This only enables potential color scheme plugins.
     # -------------------------------------------------------------------------
     colorschemes.base16 = {
-      # base16 is a "template" on which many colorschemes are based.
+      # There are a lot of schemes in base16 repo - they should all now be
+      # available, but not chosen.
       enable = true;
-      colorscheme = "solarized-dark";
     };
 
     # -------------------------------------------------------------------------
     # Plugins
     # -------------------------------------------------------------------------
     plugins = {
-      # --- LSP (Language Server Protocol) Support ---
-      # We enable the core LSP config plugin, but configure servers below.
-      lsp = {
-        enable = true;
-        
-        # Global keymappings for LSP features
-        keymaps = {
-          #diagnostic.open_float = "gl";
-          #definition.goto = "gd";
-          #references.find = "gr";
-          #hover.hover = "K";
-          #implementation.goto = "gi";
-          #rename.rename = "<leader>rn";
-        };
-      };
-
       # --- Multi-Cursor Support ---
       # Enables multi-cursor editing.
       visual-multi = {
         enable = true;
+        settings = {
+          leader = ",";
+          # Docs: https://github.com/mg979/vim-visual-multi/wiki/Mappings
+          mappings = {
+            "Find Under" = "<C-d>";
+            "Find Subword Under" = "<C-d>";
+            "Undo" = "u";
+            "Redo" = "<C-r>";
+          };
+        };
       };
 
       # --- Surround Functionality ---
@@ -119,25 +92,6 @@
       nvim-surround = {
         enable = true;
       };
-    };
-    
-    # -------------------------------------------------------------------------
-    # LSP Server Configuration
-    # -------------------------------------------------------------------------
-    lsp.servers = {
-      # --- Python ---
-      pylsp.enable = true;
-
-      # --- Rust ---
-      rust-analyzer = {
-        enable = true;
-        settings.check = {
-          command = "clippy";
-        };
-      };
-
-      # --- C/C++ ---
-      clangd.enable = true;
     };
 
     # -------------------------------------------------------------------------

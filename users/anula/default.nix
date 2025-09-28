@@ -3,7 +3,7 @@
 {
   imports = [
     ./gemini-sandboxed.nix
-    ./neovim.nix
+    ./neovim/default.nix
     ./update_notifier.nix
   ];
 
@@ -44,6 +44,7 @@
     nix-direnv.enable = true;
   };
 
+  # Note that the main editor is nvim. This is just in case.
   home.file.".vimrc" = {
     source = ./res/vimrc;
   };
