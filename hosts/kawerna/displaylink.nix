@@ -18,7 +18,6 @@
   services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
 
   systemd.services.displaylink = {
-    enabled = true;
     description = "DisplayLink Manager Service";
     after = [ "display-manager.service" ];
     script = "${pkgs.displaylink}/bin/DisplayLinkManager";
