@@ -88,7 +88,7 @@
       Format = {
         # This passes the range in args.
         range = true;
-        command = "lua require('coding-utils').format_code";
+        command.__raw = "require('coding-utils').format_code";
         desc = "Format the current buffer or a selected range";
       };
     };
