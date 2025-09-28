@@ -7,6 +7,7 @@
   imports = [
     ../common.nix
     ./hardware-configuration.nix
+    ./displaylink.nix
   ];
 
   # Set the hostname for this machine.
