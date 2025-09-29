@@ -108,32 +108,5 @@
         options.desc = "Format selection";
       }
     ];
-
-    autoCmd = [
-      {
-        # Show diagnostics in command line on hover.
-        event = "CursorHold";
-        pattern = "*";
-        callback = ''
-          function()
-            local severity_map = {
-              [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-              [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
-              [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
-              [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
-            }
-            local diagnostics = vim.diagnostic.get_pos()
-            if #diagnostics == 0 then
-              vim.api.nvim_echo({{"", 'None'}}, false, {})
-              return
-            end
-            local diagnostic = diagnostics[1]
-            local message = diagnostic.message:gsub("\n", " ")
-            local highlight = severity_map[diagnostic.severity] or "DiagnosticSignInfo"
-            vim.api.nvim_echo({{message, highlight}}, false, {})
-          end
-        '';
-      }
-    ];
   };
 }

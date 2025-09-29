@@ -76,8 +76,6 @@
           leader = ",";
           # Docs: https://github.com/mg979/vim-visual-multi/wiki/Mappings
           mappings = {
-            "Find Under" = "<C-d>";
-            "Find Subword Under" = "<C-d>";
             "Undo" = "u";
             "Redo" = "<C-r>";
           };
