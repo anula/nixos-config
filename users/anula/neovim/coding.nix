@@ -33,8 +33,18 @@
       lsp.servers = {
         lua_ls = {
           enable = true;
-          # Tell Lua to recognize vim as a global variable.
-          settings.Lua.diagnostics.globals = [ "vim" ];
+          settings = {
+            format = {
+              enable = true;
+              defaultConfig = {
+                indent_style = "space";
+                indent_size = "2";
+              };
+            };
+            diagnostics = {
+              globals = [ "vim" ];
+            };
+          };
         };
         nil_ls = {
           enable = true;
@@ -50,6 +60,14 @@
               command = "nixpkgs-fmt";
               args = [ "$FILENAME" ];
               stdin = false; # nixpkgs-fmt requires a filename
+            };
+            stylua = {
+              command = "stylua";
+              prepend_args = [
+                "--column-width" "80"
+                "--indent-type" "Spaces"
+                "--indent-width" "2"
+              ];
             };
           };
           formatters_by_ft = {
@@ -69,6 +87,13 @@
           lua = [ "luacheck" ];
           # Nix linter
           nix = [ "statix" ];
+        };
+        linters = {
+          luacheck = {
+            args = [
+              "--globals=vim"
+            ];
+          };
         };
       };
 
@@ -98,7 +123,7 @@
       {
         mode = "n";
         key = "<C-f>";
-        action = ":Format<CR>";
+        action = ":%Format<CR>";
         options.desc = "Format file";
       }
       {
