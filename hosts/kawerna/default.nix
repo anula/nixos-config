@@ -6,8 +6,9 @@
 {
   imports = [
     ../common.nix
-    ./hardware-configuration.nix
     ./displaylink.nix
+    ./hardware-configuration.nix
+    ./kdeprograms.nix
   ];
 
   # Set the hostname for this machine.
