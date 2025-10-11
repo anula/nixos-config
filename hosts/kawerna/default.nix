@@ -9,6 +9,7 @@
     ./displaylink.nix
     ./hardware-configuration.nix
     ./kdeprograms.nix
+    ./printer.nix
   ];
 
   # Set the hostname for this machine.
