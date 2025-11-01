@@ -18,6 +18,7 @@
     tree
     htop
     xclip
+    unzip
 
     # Browser
     vivaldi
