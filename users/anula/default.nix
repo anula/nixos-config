@@ -25,6 +25,9 @@
     # Entertainment
     spotify
     prismlauncher
+
+    # Passmanager
+    keepass
   ];
 
   # Default browser
