@@ -24,6 +24,7 @@
 
     # Entertainment
     spotify
+    prismlauncher
   ];
 
   # Default browser

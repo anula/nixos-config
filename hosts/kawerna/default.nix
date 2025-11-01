@@ -1,7 +1,7 @@
 #
 # This file defines the specific configuration for the 'kawerna' host.
 #
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -27,6 +27,11 @@
     # Open ports in the firewall for Steam Local Network Game Transfers
     localNetworkGameTransfers.openFirewall = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    # Sandboxing
+    inputs.nixwrap.packages.${system}.default
+  ];
 
   # =================
   # vvv Bluetooth vvv
