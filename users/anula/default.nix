@@ -54,6 +54,8 @@
     recursive = true; # Necessary because we are linking a whole directory
   };
 
+  services.dropbox.enable = true;
+
   # Enable home-manager CLI
   programs.home-manager.enable = true;
 }

@@ -31,6 +31,9 @@
   environment.systemPackages = with pkgs; [
     # Sandboxing
     inputs.nixwrap.packages.${system}.default
+
+    # App indicators
+    libappindicator-gtk3
   ];
 
   # =================
