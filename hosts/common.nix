@@ -84,7 +84,10 @@
   users.users.anula = {
     isNormalUser = true;
     description = "anula";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "podman" ];
+    # Needed for podman
+    subUidRanges = [ { startUid = 100000; count = 65536; } ];
+    subGidRanges = [ { startGid = 100000; count = 65536; } ];
   };
 
   # Install firefox.
