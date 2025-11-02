@@ -3,6 +3,11 @@
 #
 { config, pkgs, inputs, ... }:
 
+let
+  gcloud-with-components = pkgs.google-cloud-sdk.withExtraComponents (with pkgs.google-cloud-sdk.components; [
+    gke-gcloud-auth-plugin
+  ]);
+in
 {
   imports = [
     ../common.nix
@@ -44,6 +49,9 @@
     # Sandboxing
     inputs.nixwrap.packages.${system}.default
     podman-compose
+
+    gcloud-with-components
+    ansible
 
     # App indicators
     libappindicator-gtk3

@@ -29,6 +29,9 @@
 
     # Passmanager
     keepass
+
+    # Stuff
+    restic
   ];
 
   # Default browser
