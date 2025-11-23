@@ -32,6 +32,7 @@
 
     # Stuff
     restic
+    bubblewrap
   ];
 
   # Default browser

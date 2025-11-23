@@ -33,6 +33,8 @@ in
     localNetworkGameTransfers.openFirewall = true;
   };
 
+  services.tailscale.enable = true;
+
   # Podman
   virtualisation = {
     containers.enable = true;
