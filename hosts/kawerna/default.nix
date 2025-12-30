@@ -57,6 +57,8 @@ in
 
     # App indicators
     libappindicator-gtk3
+
+    calibre
   ];
 
   # =================
