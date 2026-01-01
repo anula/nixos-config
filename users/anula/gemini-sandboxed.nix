@@ -15,9 +15,46 @@
 #  * --setenv HOME /tmp: sets home at non-existent directory
 #  * --setenv PATH "/bin": gemini-cli can only run programs in this dir. Nothing
 #     by default.
+#
+# ============================================================================
+  # HOW TO UPDATE GEMINI CLI
+  # 1. Check for the latest version: https://www.npmjs.com/package/@google/gemini-cli
+  # 2. Update the 'version' string below.
+  # 3. Set 'hash' AND 'npmDepsHash' to lib.fakeHash (or just "sha256-0000...")
+  # 4. Run the rebuild command: sudo nixos-rebuild switch --flake ~/.nixos-config#kawerna
+  # 5. Nix will fail and report the correct source 'hash'. Copy/paste it.
+  # 6. Run rebuild again. Nix will fail on 'npmDepsHash'. Copy/paste that one too.
+  # 7. Run rebuild one last time. Success!
+  # ============================================================================
 
 { pkgs, lib, ... }:
 let 
+  # Pin Gemini manually to the upstream version. See instructions up top for how
+  # to update.
+  gemini-pinned = pkgs.buildNpmPackage rec {
+    pname = "gemini-cli";
+    version = "0.22.5";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "google-gemini";
+      repo = "gemini-cli";
+      rev = "v${version}";
+      hash = "sha256-3d9Lq3IulIgp4QGNtSvkwz10kfygX6vsmVdlU3lE6Gw=";
+    };
+    npmFlags = [ "--install-links" ];
+    makeCacheWritable = true;
+    dontCheckForBrokenSymlinks = true;
+
+    npmDepsHash = "sha256-6NqpkUgez7CqQAMDQW3Zdi86sF5qXseKXMw1Vw/5zWU=";
+
+    # Tools needed *during* the build (compilers, config tools)
+    nativeBuildInputs = [ pkgs.pkg-config ];
+
+    # Libraries the code links against (libsecret is for secure storage)
+    buildInputs = [ pkgs.libsecret ];
+
+    dontNpmBuild = true;
+  };
   gemini-sandboxed = pkgs.writeShellScriptBin "gemini-sandboxed" ''
     #!${pkgs.bash}/bin/bash
     set -e
@@ -74,7 +111,7 @@ let
       --setenv HOME /home/sandboxuser \
       --setenv EDITOR /bin/vim \
       --setenv PATH "/bin" \
-      ${pkgs.gemini-cli}/bin/gemini "$@"
+      ${gemini-pinned}/bin/gemini "$@"
   '';
 in
 {
