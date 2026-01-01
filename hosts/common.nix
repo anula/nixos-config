@@ -90,9 +90,6 @@
     subGidRanges = [ { startGid = 100000; count = 65536; } ];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
