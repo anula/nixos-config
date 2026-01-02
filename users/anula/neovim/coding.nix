@@ -4,6 +4,16 @@
 
 { pkgs, ... }:
 
+let
+  # Define a custom Ruff configuration file (Python, formatter)
+  ruffConfig = pkgs.writeText "ruff.toml" ''
+    line-length = 80
+    indent-width = 2
+    
+    [format]
+    indent-style = "space"
+  '';
+in
 {
   programs.nixvim = {
 
@@ -16,6 +26,9 @@
       nil
       nixpkgs-fmt
       statix
+      # Python tools
+      pyright
+      ruff
     ];
 
     plugins = {
@@ -49,6 +62,9 @@
         nil_ls = {
           enable = true;
         };
+        pyright = {
+          enable = true;
+        };
       };
 
       # Formatting
@@ -69,12 +85,17 @@
                 "--indent-width" "2"
               ];
             };
+            ruff_format = {
+              prepend_args = [ "--config" "${ruffConfig}" ];
+            };
           };
           formatters_by_ft = {
             # Lua formatter
             lua = [ "stylua" ];
             # Nix formatter
             nix = [ "nixpkgs-fmt" ];
+            # Python formatter
+            python = [ "ruff_format" ];
           };
         };
       };
@@ -87,11 +108,19 @@
           lua = [ "luacheck" ];
           # Nix linter
           nix = [ "statix" ];
+          # Python linter
+          python = [ "ruff" ];
         };
         linters = {
           luacheck = {
             args = [
               "--globals=vim"
+            ];
+          };
+          ruff = {
+            args = [
+              "check"
+              "--config" "${ruffConfig}"
             ];
           };
         };
