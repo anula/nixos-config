@@ -104,6 +104,11 @@
         # The command to run. `setlocal` makes it buffer-specific.
         command = "setlocal wrap";
       }
+      {
+        event = "FileType";
+        pattern = [ "python" ];
+        command = "setlocal tabstop=2 shiftwidth=2 expandtab";
+      }
     ];
   };
 }
