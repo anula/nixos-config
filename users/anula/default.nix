@@ -4,6 +4,7 @@
   imports = [
     ./gemini-sandboxed.nix
     ./neovim/default.nix
+    ./kubernetes.nix
     ./update_notifier.nix
   ];
 
@@ -33,10 +34,6 @@
     # Stuff
     restic
     bubblewrap
-
-    # Kubernetes
-    talosctl
-    kubectl
 
     # Archives
     unzip
