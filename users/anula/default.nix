@@ -34,6 +34,10 @@
     restic
     bubblewrap
 
+    # Kubernetes
+    talosctl
+    kubectl
+
     # Archives
     unzip
     unar
