@@ -24,6 +24,17 @@
     # Browser
     vivaldi
 
+    # Markdown
+    glow
+    (writeShellScriptBin "markserv" ''
+      # npx needs node in the PATH
+      export PATH="${pkgs.nodejs}/bin:$PATH"
+      exec npx markserv "$@"
+    '')
+
+    # File server
+    miniserve
+
     # Entertainment
     spotify
     prismlauncher
