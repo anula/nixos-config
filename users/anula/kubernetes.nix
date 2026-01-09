@@ -18,8 +18,9 @@ let
 in
 {
   home.packages = with pkgs; [
-    talosctl-pinned
-    kubectl
     fluxcd
+    kubectl
+    kubernetes-helm
+    talosctl-pinned
   ];
 }
