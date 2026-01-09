@@ -33,19 +33,19 @@ let
   # to update.
   gemini-pinned = pkgs.buildNpmPackage rec {
     pname = "gemini-cli";
-    version = "0.22.5";
+    version = "0.23.0";
 
     src = pkgs.fetchFromGitHub {
       owner = "google-gemini";
       repo = "gemini-cli";
       rev = "v${version}";
-      hash = "sha256-3d9Lq3IulIgp4QGNtSvkwz10kfygX6vsmVdlU3lE6Gw=";
+      hash = "sha256-tl9Iy1M0YxPvUpbIQRl7/P2iRIb5n1cvHEqK2k3OR5I=";
     };
     npmFlags = [ "--install-links" ];
     makeCacheWritable = true;
     dontCheckForBrokenSymlinks = true;
 
-    npmDepsHash = "sha256-6NqpkUgez7CqQAMDQW3Zdi86sF5qXseKXMw1Vw/5zWU=";
+    npmDepsHash = "sha256-gPmH/Ym6+UxbpH8CEuDmdZtbR6HqWPjMchs1zlDELDU=";
 
     # Tools needed *during* the build (compilers, config tools)
     nativeBuildInputs = [ pkgs.pkg-config ];
@@ -99,6 +99,9 @@ let
       --ro-bind ${pkgs.coreutils}/bin/mkdir /bin/mkdir \
       --ro-bind ${pkgs.coreutils}/bin/touch /bin/touch \
       --ro-bind ${pkgs.coreutils}/bin/echo /bin/echo \
+      --ro-bind ${pkgs.coreutils}/bin/mv /bin/mv \
+      --ro-bind ${pkgs.coreutils}/bin/cp /bin/cp \
+      --ro-bind ${pkgs.coreutils}/bin/rm /bin/rm \
       --ro-bind ${pkgs.coreutils}/bin/stat /bin/stat \
       --ro-bind ${pkgs.coreutils}/bin/date /bin/date \
       --ro-bind ${pkgs.coreutils}/bin/sort /bin/sort \
