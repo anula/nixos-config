@@ -29,6 +29,9 @@ in
       # Python tools
       pyright
       ruff
+      # Note: Rust tools (rust-analyzer, rustfmt) are NOT installed globally 
+      # here to avoid version mismatches with project-specific toolchains.
+      # They should be provided by a nix develop shell or similar.
     ];
 
     plugins = {
@@ -65,6 +68,15 @@ in
         pyright = {
           enable = true;
         };
+        rust_analyzer = {
+          enable = true;
+          installCargo = false;
+          installRustc = false;
+          # Setting package to null so that no rust-analyzer is bundled with
+          # neovim.
+          # This way the rust-analyzer from PATH (eg. from nix develop) is used.
+          package = null;
+        };
       };
 
       # Formatting
@@ -88,6 +100,9 @@ in
             ruff_format = {
               prepend_args = [ "--config" "${ruffConfig}" ];
             };
+            rustfmt = {
+              prepend_args = [ "--config" "max_width=80,tab_spaces=2" ];
+            };
           };
           formatters_by_ft = {
             # Lua formatter
@@ -96,6 +111,8 @@ in
             nix = [ "nixpkgs-fmt" ];
             # Python formatter
             python = [ "ruff_format" ];
+            # Rust formatter
+            rust = [ "rustfmt" ];
           };
         };
       };
