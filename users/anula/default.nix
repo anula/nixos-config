@@ -3,6 +3,7 @@
 {
   imports = [
     ./gemini-sandboxed.nix
+    ./opencode-sandboxed.nix
     ./neovim/default.nix
     ./kubernetes.nix
     ./update_notifier.nix

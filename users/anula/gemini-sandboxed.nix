@@ -107,10 +107,12 @@ let
       --ro-bind ${pkgs.coreutils}/bin/sort /bin/sort \
       --ro-bind ${pkgs.coreutils}/bin/uniq /bin/uniq \
       --ro-bind ${pkgs.jj}/bin/jj /bin/jj \
+      --ro-bind ${pkgs.curl}/bin/curl /bin/curl \
       --bind "$WORKDIR" /work \
       --bind "$PERSISTENT_CONFIG_DIR" /home/sandboxuser \
       --chdir /work \
       --setenv NODE_EXTRA_CA_CERTS ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt \
+      --setenv SSL_CERT_FILE ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt \
       --setenv HOME /home/sandboxuser \
       --setenv EDITOR /bin/vim \
       --setenv PATH "/bin" \
