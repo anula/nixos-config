@@ -66,6 +66,7 @@ pkgs.writeShellScriptBin name ''
     --setenv NODE_EXTRA_CA_CERTS ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt \
     --setenv SSL_CERT_FILE ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt \
     --setenv HOME /home/sandboxuser \
+    --setenv SHELL /bin/bash \
     --setenv EDITOR /bin/vim \
     --setenv PATH "/bin" \
     ${binPath} "$@"
