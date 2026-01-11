@@ -60,6 +60,8 @@ pkgs.writeShellScriptBin name ''
     --ro-bind ${pkgs.coreutils}/bin/uniq /bin/uniq \
     --ro-bind ${pkgs.jj}/bin/jj /bin/jj \
     --ro-bind ${pkgs.curl}/bin/curl /bin/curl \
+    --ro-bind ${pkgs.gnutar}/bin/tar /bin/tar \
+    --ro-bind ${pkgs.findutils}/bin/find /bin/find \
     --bind "$WORKDIR" /work \
     --bind "$PERSISTENT_CONFIG_DIR" /home/sandboxuser \
     --chdir /work \
