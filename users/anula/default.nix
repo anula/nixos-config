@@ -2,10 +2,11 @@
 
 {
   imports = [
-    ./gemini-sandboxed.nix
-    ./opencode-sandboxed.nix
-    ./neovim/default.nix
+    ./ai-agents/gemini-sandboxed.nix
+    ./ai-agents/opencode-sandboxed.nix
+    ./ai-agents/claude-sandboxed.nix
     ./kubernetes.nix
+    ./neovim/default.nix
     ./update_notifier.nix
   ];
 
