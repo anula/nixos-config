@@ -109,6 +109,11 @@
         pattern = [ "python" ];
         command = "setlocal tabstop=2 shiftwidth=2 expandtab";
       }
+      {
+        event = "FileType";
+        pattern = [ "rust" ];
+        command = "setlocal tabstop=2 shiftwidth=2 expandtab textwidth=80";
+      }
     ];
   };
 }

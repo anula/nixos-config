@@ -147,6 +147,28 @@ in
       cmp = {
         enable = true;
         settings = {
+          preselect.__raw = "cmp.PreselectMode.None";
+          completion.completeopt = "menu,menuone,noselect";
+          mapping = {
+            "<C-n>".__raw = ''
+              function(fallback)
+                if cmp.visible() then
+                  cmp.select_next_item({ behavior = 'insert' })
+                else
+                  cmp.complete()
+                end
+              end
+            '';
+            "<C-p>".__raw = ''
+              function(fallback)
+                if cmp.visible() then
+                  cmp.select_prev_item({ behavior = 'insert' })
+                else
+                  cmp.complete()
+                end
+              end
+            '';
+          };
           sources = [
             { name = "nvim_lsp"; }
             { name = "path"; }
