@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let 
-  version = "1.1.12";
+  version = "1.1.34";
   makeSandbox = import ./ai-agent-sandbox.nix { inherit pkgs; };
   
   # Fetch the pre-built binary from GitHub Releases
@@ -10,7 +10,7 @@ let
 
     src = pkgs.fetchurl {
       url = "https://github.com/anomalyco/opencode/releases/download/v${version}/opencode-linux-x64.tar.gz";
-      hash = "sha256-eiFuBbT1Grz1UBrGfg22z2AdCvE/6441vLVDD6L9DgE=";
+      hash = "sha256-l3PYXTBuE3l93I4OVeYQpZ3pjVOBTQvqDAO5EonMb/Y=";
     };
 
     sourceRoot = ".";
