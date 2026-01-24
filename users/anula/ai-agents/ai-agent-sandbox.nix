@@ -27,12 +27,22 @@ pkgs.writeShellScriptBin name ''
   PERSISTENT_CONFIG_DIR="$HOME/.config/${configDirName}"
   mkdir -p "$PERSISTENT_CONFIG_DIR"
 
+  # Create a minimal hosts file to prevent the agent from seeing system aliases
+  # while ensuring localhost and hostname resolve to loopback (fixing bind errors).
+  SANDBOX_HOSTS=$(mktemp)
+  cat > "$SANDBOX_HOSTS" <<EOF
+  127.0.0.1 localhost $(${pkgs.coreutils}/bin/uname -n)
+  ::1       localhost $(${pkgs.coreutils}/bin/uname -n)
+  EOF
+  trap 'rm -f "$SANDBOX_HOSTS"' EXIT
+
   ${pkgs.bubblewrap}/bin/bwrap \
     --unshare-all \
     --share-net \
     --ro-bind /nix/store /nix/store \
     --ro-bind /etc/resolv.conf /etc/resolv.conf \
     --ro-bind /etc/passwd /etc/passwd \
+    --ro-bind "$SANDBOX_HOSTS" /etc/hosts \
     --proc /proc \
     --dev /dev \
     --tmpfs /tmp \
