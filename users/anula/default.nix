@@ -45,6 +45,7 @@
     keepass
 
     # Stuff
+    httpie
     restic
     bubblewrap
 
