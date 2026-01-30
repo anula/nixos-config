@@ -48,6 +48,7 @@
     httpie
     restic
     bubblewrap
+    openbao
 
     # Archives
     unzip
