@@ -26,6 +26,9 @@
     # Browser
     vivaldi
 
+    # Network
+    bind
+
     # Markdown
     glow
     (writeShellScriptBin "markserv" ''
