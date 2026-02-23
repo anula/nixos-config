@@ -64,6 +64,7 @@ pkgs.writeShellScriptBin name ''
     --ro-bind ${pkgs.coreutils}/bin/mv /bin/mv \
     --ro-bind ${pkgs.coreutils}/bin/cp /bin/cp \
     --ro-bind ${pkgs.coreutils}/bin/rm /bin/rm \
+    --ro-bind ${pkgs.coreutils}/bin/rmdir /bin/rmdir \
     --ro-bind ${pkgs.coreutils}/bin/stat /bin/stat \
     --ro-bind ${pkgs.coreutils}/bin/date /bin/date \
     --ro-bind ${pkgs.coreutils}/bin/sort /bin/sort \
