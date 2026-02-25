@@ -52,6 +52,9 @@
     restic
     bubblewrap
     openbao
+    openssl
+    jq
+    ffmpeg
 
     # Archives
     unzip

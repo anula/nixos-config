@@ -21,6 +21,7 @@ in
     fluxcd
     kubectl
     kubernetes-helm
+    kustomize
     talosctl-pinned
   ];
 }

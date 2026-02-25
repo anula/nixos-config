@@ -4,19 +4,19 @@ let
 
   gemini-pinned = pkgs.buildNpmPackage rec {
     pname = "gemini-cli";
-    version = "0.29.5";
+    version = "0.33.1";
 
     src = pkgs.fetchFromGitHub {
       owner = "google-gemini";
       repo = "gemini-cli";
       rev = "v${version}";
-      hash = "sha256-+gFSTq0CXMZa2OhP2gOuWa5WtteKW7Ys78lgnz7J72g=";
+      hash = "sha256-dDP+UcIuajyad0tZz6/jqJ9AMERUtyn0z2ohkGiSSj0=";
     };
     npmFlags = [ "--install-links" ];
     makeCacheWritable = true;
     dontCheckForBrokenSymlinks = true;
 
-    npmDepsHash = "sha256-RGiWtJkLFV1UfFahHPzxtzJIsPCseEwfSsPdLfBkavI=";
+    npmDepsHash = "sha256-Frne1xZoMqcJowMzhGrBpTYcjqQuUgbP2ak63NYbHlY=";
 
     nativeBuildInputs = [ pkgs.pkg-config ];
     buildInputs = [ pkgs.libsecret ];
