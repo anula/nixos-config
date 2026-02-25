@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  version = "2.1.4";
+  version = "2.1.5";
   makeSandbox = import ./ai-agent-sandbox.nix { inherit pkgs; };
 
   # Stage 1: Fetch and Install Dependencies (Fixed-Output Derivation)
@@ -12,7 +12,7 @@ let
 
     src = pkgs.fetchurl {
       url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
-      hash = "sha256-gRHD9KvVjP8vTnfwj1oyaRm7ZbICapiF+53/os2L13E="; 
+      hash = "sha256-pJWGkKtGn8DIMuHc+LxhS0ta4nxrZyKJOd0qXfAM7VI=";
     };
 
     dontUnpack = true;
@@ -21,7 +21,7 @@ let
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-wSXFNbvsag1LKq+iZUdaASqOl0WBtLH93xNjeuERkms=";
+    outputHash = "sha256-Rz+NMeAsjJmnuTz/FxyWGtgEOpniTntJFmAlU4NS1d4=";
 
     installPhase = ''
       export HOME=$TMPDIR
