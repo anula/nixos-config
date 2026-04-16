@@ -11,6 +11,7 @@ in
 {
   imports = [
     ../common.nix
+    ./3dprinting.nix
     ./displaylink.nix
     ./graphics.nix
     ./hardware-configuration.nix
