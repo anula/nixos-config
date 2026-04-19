@@ -10,7 +10,10 @@ let
 in
 {
   imports = [
-    ../common.nix
+    ../common/base.nix
+    ../common/desktop.nix
+    ../common/audio.nix
+    ../common/bare-metal.nix
     ./3dprinting.nix
     ./displaylink.nix
     ./graphics.nix
@@ -21,6 +24,18 @@ in
 
   # Set the hostname for this machine.
   networking.hostName = "kawerna";
+
+  # Home Manager configuration
+  home-manager.users.anula = {
+    imports = [
+      inputs.nixvim.homeManagerModules.nixvim
+      ../../users/anula/core.nix
+      ../../users/anula/dev.nix
+      ../../users/anula/ai.nix
+      ../../users/anula/desktop.nix
+      ../../users/anula/kubernetes.nix
+    ];
+  };
 
   # Handling Steam on system level, since it needs system-level
   # stuff like drivers and firewall rules.
