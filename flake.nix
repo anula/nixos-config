@@ -18,9 +18,13 @@
       url = "github:rti/nixwrap";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, nixwrap, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nixvim, nixwrap, nixos-wsl, ... }@inputs: {
     nixosConfigurations = {
       kawerna = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
@@ -30,6 +34,17 @@
 
           # custom modules
           ./hosts/kawerna/default.nix
+        ];
+      };
+
+      lufcik = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          home-manager.nixosModules.home-manager
+          nixos-wsl.nixosModules.default
+
+          ./hosts/lufcik/default.nix
         ];
       };
     };
