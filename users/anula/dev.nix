@@ -10,6 +10,9 @@
     bubblewrap
     openbao
     
+    # Infrastructure as Code
+    opentofu
+    
     # Static file servers
     miniserve
     (writeShellScriptBin "markserv" ''
