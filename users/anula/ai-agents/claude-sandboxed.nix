@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  version = "2.1.5";
+  version = "2.1.214";
   makeSandbox = import ./ai-agent-sandbox.nix { inherit pkgs; };
 
   # Stage 1: Fetch and Install Dependencies (Fixed-Output Derivation)
@@ -12,7 +12,7 @@ let
 
     src = pkgs.fetchurl {
       url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
-      hash = "sha256-pJWGkKtGn8DIMuHc+LxhS0ta4nxrZyKJOd0qXfAM7VI=";
+      hash = "sha256-XMHrvyAKkpC0VgrZ9z1ADE2OjTMWROxF60XEcRtPY+g=";
     };
 
     dontUnpack = true;
@@ -21,7 +21,7 @@ let
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-Rz+NMeAsjJmnuTz/FxyWGtgEOpniTntJFmAlU4NS1d4=";
+    outputHash = "sha256-P6pRp2Fw1gfnEYp7Fi8JpfXLHi57r2kmzAQRf/RV76w=";
 
     installPhase = ''
       export HOME=$TMPDIR
@@ -43,9 +43,11 @@ let
     pname = "claude-code";
     inherit version;
     
-    phases = [ "installPhase" ];
+    phases = [ "installPhase" "fixupPhase" ];
+    dontStrip = true;
 
-    nativeBuildInputs = [ pkgs.makeWrapper ];
+    nativeBuildInputs = [ pkgs.makeWrapper pkgs.autoPatchelfHook ];
+    buildInputs = [ pkgs.stdenv.cc.cc.lib pkgs.zlib ];
 
     installPhase = ''
       mkdir -p $out/lib/node_modules/@anthropic-ai/claude-code
@@ -55,7 +57,7 @@ let
 
       mkdir -p $out/bin
       makeWrapper ${pkgs.nodejs_22}/bin/node $out/bin/claude \
-        --add-flags "$out/lib/node_modules/@anthropic-ai/claude-code/cli.js" \
+        --add-flags "$out/lib/node_modules/@anthropic-ai/claude-code/cli-wrapper.cjs" \
         --set CLAUDE_CODE_DISABLE_UPDATE_CHECK 1
     '';
 
