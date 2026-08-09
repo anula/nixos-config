@@ -22,7 +22,7 @@ in
   # Home Manager configuration
   home-manager.users.anula = {
     imports = [
-      inputs.nixvim.homeManagerModules.nixvim
+      inputs.nixvim.homeModules.nixvim
       ../../users/anula/core.nix
       ../../users/anula/dev.nix
     ];
@@ -40,7 +40,7 @@ in
 
   environment.systemPackages = with pkgs; [
     # Sandboxing
-    inputs.nixwrap.packages.${system}.default
+    inputs.nixwrap.packages.${pkgs.stdenv.hostPlatform.system}.default
     podman-compose
 
     gcloud-with-components

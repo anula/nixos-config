@@ -42,7 +42,7 @@
     git
     jujutsu
     wget
-    (vim_configurable.override {
+    (vim-full.override {
       python3 = python3;
     })
   ];

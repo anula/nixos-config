@@ -2,17 +2,21 @@
   description = "anula's NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-26.05";
       # Keep inputs.nixpkgs of home-manager consistent with
       # the current flake.
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.05";
+      url = "github:nix-community/nixvim/nixos-26.05";
       # Use stable version: https://github.com/nix-community/nixvim/issues/3699
-      inputs.nixpkgs.follows = "nixpkgs";
+      # Deliberately NOT following our nixpkgs: nixvim's home-manager
+      # module already reuses the ambient pkgs for the actual neovim
+      # build (nixpkgs.useGlobalPackages), so forcing the follow here
+      # only bought us a nixpkgs-revision-mismatch warning, not anything
+      # useful - let nixvim use its own tested nixpkgs pin instead.
     };
     nixwrap = {
       url = "github:rti/nixwrap";
