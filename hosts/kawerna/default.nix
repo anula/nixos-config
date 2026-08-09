@@ -12,6 +12,7 @@ in
   imports = [
     ../common/base.nix
     ../common/desktop.nix
+    ../common/niri.nix
     ../common/audio.nix
     ../common/bare-metal.nix
     ./3dprinting.nix
@@ -29,12 +30,30 @@ in
   home-manager.users.anula = {
     imports = [
       inputs.nixvim.homeModules.nixvim
+      # inputs.niri.homeModules.config is intentionally NOT imported here:
+      # inputs.niri.nixosModules.niri (see hosts/common/niri.nix) already
+      # injects it via home-manager.sharedModules for every user once
+      # home-manager is present as a NixOS module. Importing it again here
+      # duplicates internal niri-flake options (programs.niri.finalConfig)
+      # and fails the build with an "already declared" error.
+      inputs.dms.homeModules.dank-material-shell
+      inputs.dms.homeModules.niri
       ../../users/anula/core.nix
       ../../users/anula/dev.nix
       ../../users/anula/ai.nix
       ../../users/anula/desktop.nix
       ../../users/anula/kubernetes.nix
+      ../../users/anula/niri.nix
     ];
+
+    # dgop (DMS's system-monitoring backend) isn't in nixpkgs at all - it's
+    # built from its own flake.
+    #
+    # NB: DMS's own "dms-shell" package and its quickshell dependency used
+    # to need overriding here too (nixos-25.05 lacked go_1_26/quickshell),
+    # but now that the repo's main nixpkgs is 26.05 - which has both -
+    # DMS's own defaults (ambient home-manager pkgs) resolve them directly.
+    programs.dank-material-shell.dgop.package = inputs.dgop.packages.${pkgs.system}.dgop;
   };
 
   # Handling Steam on system level, since it needs system-level
