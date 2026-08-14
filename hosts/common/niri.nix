@@ -15,7 +15,7 @@
 
   programs.niri.enable = true;
 
-  programs.niri.package = inputs.niri.packages.${pkgs.system}.niri-stable.overrideAttrs (old: {
+  programs.niri.package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.niri-stable.overrideAttrs (old: {
     # niri-flake's build runs niri's cargo test suite. It already skips
     # the known-broken ::egl tests (need a real GPU), but something else
     # in there still SIGABRTs in this sandboxed nix-daemon build (a rayon

@@ -12,6 +12,15 @@
     enable = true;
     colorscheme = "unokai";
 
+    # Use the ambient/global nixpkgs (home-manager's pkgs) instead of
+    # nixvim constructing its own instance from its self-tested pin.
+    # Despite the name, home-manager.useGlobalPkgs (base.nix) does NOT
+    # imply this - nixvim's useGlobalPackages defaults to false and has
+    # to be set separately, or nixvim silently builds from its own
+    # pinned nixpkgs and warns about the revision mismatch. See the
+    # comment on the nixvim input in flake.nix for why we want this.
+    nixpkgs.useGlobalPackages = true;
+
     # Make nvim the default editor and open even on `vi` and `vim`.
     defaultEditor = true;
     viAlias = true;

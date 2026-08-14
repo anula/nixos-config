@@ -53,7 +53,7 @@ in
     # to need overriding here too (nixos-25.05 lacked go_1_26/quickshell),
     # but now that the repo's main nixpkgs is 26.05 - which has both -
     # DMS's own defaults (ambient home-manager pkgs) resolve them directly.
-    programs.dank-material-shell.dgop.package = inputs.dgop.packages.${pkgs.system}.dgop;
+    programs.dank-material-shell.dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.dgop;
   };
 
   # Handling Steam on system level, since it needs system-level

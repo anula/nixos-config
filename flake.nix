@@ -12,11 +12,14 @@
     nixvim = {
       url = "github:nix-community/nixvim/nixos-26.05";
       # Use stable version: https://github.com/nix-community/nixvim/issues/3699
-      # Deliberately NOT following our nixpkgs: nixvim's home-manager
-      # module already reuses the ambient pkgs for the actual neovim
-      # build (nixpkgs.useGlobalPackages), so forcing the follow here
-      # only bought us a nixpkgs-revision-mismatch warning, not anything
-      # useful - let nixvim use its own tested nixpkgs pin instead.
+      # Deliberately NOT following our nixpkgs here: the actual neovim
+      # build already reuses the ambient/global pkgs via
+      # `programs.nixvim.nixpkgs.useGlobalPackages = true` (set in
+      # users/anula/neovim/default.nix - it defaults to false, this
+      # isn't automatic from home-manager.useGlobalPkgs despite the
+      # similar name). Following nixpkgs on this input too just bought
+      # us a nixpkgs-revision-mismatch warning, not anything useful -
+      # let nixvim's own flake.lock use its own tested pin instead.
     };
     nixwrap = {
       url = "github:rti/nixwrap";
