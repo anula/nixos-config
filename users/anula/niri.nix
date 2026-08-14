@@ -42,11 +42,12 @@
 
 {
   home.packages = with pkgs; [
-    alacritty # Mod+T
-    fuzzel # Mod+D
+    kdePackages.konsole # Mod+T
     playerctl # media keys
     # No swaylock/brightnessctl here: DMS's own niri keybinds (below) own
     # locking and brightness via its own IPC/OSD instead.
+    # No app launcher here either: DMS's own Mod+Space covers that (see
+    # niri.enableKeybinds below) - fuzzel/Mod+D was dropped as redundant.
   ];
 
   programs.niri.settings = {
@@ -56,14 +57,12 @@
       # Mod-Shift-/ (usually Mod-?) shows a list of important hotkeys.
       "Mod+Shift+Slash".action.show-hotkey-overlay = { };
 
-      # Suggested binds for running programs: terminal, app launcher, screen locker.
+      # Suggested binds for running programs: terminal, screen locker.
+      # (App launcher is Mod+Space, from DMS - see niri.enableKeybinds
+      # below - so no niri-side launcher bind here.)
       "Mod+T" = {
-        hotkey-overlay.title = "Open a Terminal: alacritty";
-        action.spawn = "alacritty";
-      };
-      "Mod+D" = {
-        hotkey-overlay.title = "Run an Application: fuzzel";
-        action.spawn = "fuzzel";
+        hotkey-overlay.title = "Open a Terminal: konsole";
+        action.spawn = "konsole";
       };
       # Super+Alt+L (lock screen) is bound by DMS instead - see bottom of file.
 
