@@ -51,7 +51,14 @@
   ];
 
   programs.niri.settings = {
-    input.keyboard.xkb.layout = "us";
+    input.keyboard.xkb = {
+      # Comma-separated = multiple layouts; "options" below binds the key
+      # that cycles between them. Alt+Shift, not a Mod-based combo, since
+      # Mod+Space is already DMS's launcher and most other Mod+<key>
+      # combos are claimed by niri binds above.
+      layout = "us,pl";
+      options = "grp:alt_shift_toggle";
+    };
 
     binds = {
       # Mod-Shift-/ (usually Mod-?) shows a list of important hotkeys.
