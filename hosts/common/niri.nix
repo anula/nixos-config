@@ -45,4 +45,30 @@
   environment.systemPackages = with pkgs; [
     xwayland-satellite
   ];
+
+  # niri-flake auto-installs xdg-desktop-portal-gnome (it says this is
+  # needed for screencasting) but doesn't pin it as niri's preferred
+  # portal backend. This host also runs Plasma as an alternate SDDM
+  # session (hosts/common/desktop.nix), which registers
+  # xdg-desktop-portal-kde. With two default-capable backends
+  # registered and no routing config, xdg-desktop-portal has no
+  # deterministic way to pick one under niri. Plasma sessions are
+  # unaffected by any of this (XDG_CURRENT_DESKTOP=KDE won't match the
+  # "niri" key below).
+  #
+  # gnome is pinned as the general default, but FileChooser specifically
+  # is repointed at gtk: xdg-desktop-portal-gnome doesn't implement
+  # FileChooser itself outside of an actual GNOME Shell session - it
+  # delegates that one interface to xdg-desktop-portal-gtk's D-Bus
+  # service. Confirmed via `journalctl --user -u xdg-desktop-portal -u
+  # 'xdg-desktop-portal-*'`: "Delegated FileChooser call failed: The
+  # name is not activatable" - i.e. every "Choose File" dialog (e.g. in
+  # Vivaldi) silently failed because that gtk service was never
+  # installed, only gnome's. Installing xdg-desktop-portal-gtk here and
+  # routing FileChooser to it directly fixes that.
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  xdg.portal.config."niri" = {
+    default = [ "gnome" ];
+    "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+  };
 }
