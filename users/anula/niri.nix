@@ -48,7 +48,59 @@
     # locking and brightness via its own IPC/OSD instead.
     # No app launcher here either: DMS's own Mod+Space covers that (see
     # niri.enableKeybinds below) - fuzzel/Mod+D was dropped as redundant.
+
+    # Spectacle (from Plasma) doesn't work under niri - it needs a
+    # running kwin to talk to over D-Bus. This is the niri-ecosystem
+    # equivalent: grim captures, slurp is the drag-to-select-an-area
+    # picker, swappy is the actual GUI (shown after selection - lets you
+    # annotate/crop, then save or copy). Launchable via the app launcher
+    # (see xdg.desktopEntries.screenshot below) rather than a keybind.
+    grim
+    slurp
+    swappy
   ];
+
+  # Makes the grim+slurp+swappy combo above show up in the app launcher
+  # (e.g. DMS's Mod+Space) as a normal entry, same as Spectacle would.
+  xdg.desktopEntries.screenshot = {
+    name = "Screenshot";
+    genericName = "Screenshot Tool";
+    comment = "Select an area of the screen to capture and annotate";
+    icon = "camera-photo";
+    exec = "${pkgs.writeShellScript "screenshot-select" ''
+      ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f -
+    ''}";
+    terminal = false;
+    categories = [ "Graphics" "Utility" ];
+    settings.Keywords = "screenshot;capture;snip;snapshot;";
+  };
+
+  # Hides Spectacle from the launcher under niri, where it's broken (see
+  # note above) and would otherwise sit right next to the working
+  # replacement above, failing silently if clicked. Still shows and
+  # works normally under Plasma.
+  #
+  # Shadows its real entry (org.kde.spectacle.desktop, id/fields
+  # confirmed against KDE's own source) with a copy restricted to
+  # OnlyShowIn=KDE. This works because ~/.local/share/applications -
+  # where home-manager's xdg.desktopEntries writes to - takes precedence
+  # over the system one in XDG_DATA_DIRS lookup order. Only loses the
+  # upstream file's translations and the right-click quick-capture
+  # actions (full screen/window/region/record shortcuts) under Plasma -
+  # cosmetic.
+  xdg.desktopEntries."org.kde.spectacle" = {
+    name = "Spectacle";
+    genericName = "Screenshot Capture Utility";
+    comment = "Take screenshots and screen recordings";
+    icon = "spectacle";
+    exec = "spectacle";
+    terminal = false;
+    categories = [ "Qt" "KDE" "Utility" ];
+    settings = {
+      Keywords = "snapshot;capture;print;screenshot;snipping;snipping tool;snip;";
+      OnlyShowIn = "KDE;";
+    };
+  };
 
   programs.niri.settings = {
     input.keyboard.xkb = {
