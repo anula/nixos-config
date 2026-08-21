@@ -21,6 +21,34 @@
     # Entertainment
     spotify
     prismlauncher
+
+    # Home design
+    #
+    # Java3D/JOGL's GLX rendering crashes under niri: NVIDIA's driver
+    # mishandles GL surface reconfiguration whenever xwayland-satellite
+    # resizes/hides the window (column switch, workspace switch, even
+    # while floating) - open upstream bugs, no real fix:
+    #   https://forums.developer.nvidia.com/t/bad-resizing-of-wayland-opengl-and-also-vulkan-subwindows-with-nvidia-drivers-any/347050
+    #   https://github.com/Supreeeme/xwayland-satellite/issues/192
+    # Falling back to Mesa's software GLX (llvmpipe) avoids NVIDIA's GLX
+    # entirely, sidestepping the bug at the cost of 3D-view performance.
+    # Scoped to niri only (detected via $NIRI_SOCKET, which niri sets for
+    # its session) so a plain Xorg/Plasma session still gets hardware
+    # acceleration.
+    (symlinkJoin {
+      name = "sweethome3d";
+      paths = [ sweethome3d.application ];
+      nativeBuildInputs = [ makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/sweethome3d \
+          --run '
+            if [ -n "$NIRI_SOCKET" ]; then
+              export __GLX_VENDOR_LIBRARY_NAME=mesa
+              export LIBGL_ALWAYS_SOFTWARE=1
+            fi
+          '
+      '';
+    })
     
     # Passmanager
     keepass
