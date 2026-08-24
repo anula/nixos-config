@@ -22,6 +22,12 @@
     spotify
     prismlauncher
 
+    # 3D modelling
+    blender
+
+    # Graphics
+    inkscape
+
     # Home design
     #
     # Java3D/JOGL's GLX rendering crashes under niri: NVIDIA's driver
