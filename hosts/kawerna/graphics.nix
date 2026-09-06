@@ -21,9 +21,14 @@
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
     # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
+    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
     # of just the bare essentials.
-    powerManagement.enable = false;
+    #
+    # Enabled: was causing Vivaldi (rendered via xwayland-satellite under
+    # niri, see users/anula/desktop.nix) to become unresponsive to input
+    # after the machine sat suspended overnight - GL context state wasn't
+    # being fully preserved across suspend with this off.
+    powerManagement.enable = true;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
