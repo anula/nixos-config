@@ -3,6 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    # Deliberately separate from the main nixpkgs pin above: binary-blob
+    # apps (e.g. bitwig-studio) get point-release bumps on nixos-unstable
+    # long before they're backported onto our stable branch. Used to pull
+    # just those packages at their latest version, without bumping the
+    # whole system's nixpkgs.
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       # Keep inputs.nixpkgs of home-manager consistent with

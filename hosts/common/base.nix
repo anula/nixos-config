@@ -60,6 +60,10 @@
   # Home manager global settings
   home-manager = {
     useGlobalPkgs = true;
+    # Makes `inputs` available as a module arg inside home-manager user
+    # modules (e.g. users/anula/desktop.nix), same as it already is for
+    # NixOS modules via specialArgs.
+    extraSpecialArgs = { inherit inputs; };
   };
 
   # This value determines the NixOS release from which the default

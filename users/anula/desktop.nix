@@ -1,4 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
+
+let
+  # Point-release bumps of binary-blob apps like this one aren't
+  # backported onto our pinned nixpkgs branch, so our pin regularly lags
+  # upstream. Pull just this package from nixpkgs-unstable (flake.nix)
+  # instead of bumping the whole system's nixpkgs for it.
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    inherit (pkgs) system;
+    config.allowUnfree = true;
+  };
+  bitwig-studio = pkgs-unstable.bitwig-studio;
+in
 
 {
   imports = [
@@ -27,6 +39,9 @@
 
     # Graphics
     inkscape
+
+    # Music production
+    bitwig-studio
 
     # Home design
     #
