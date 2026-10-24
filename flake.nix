@@ -45,13 +45,6 @@
       # just follow the repo's main nixpkgs (no unstable pin needed).
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # dgop is DMS's system-monitoring backend
-    # (programs.dank-material-shell.dgop.package). Its own flake, own
-    # package output; also needs go_1_26, same reasoning as dms above.
-    dgop = {
-      url = "github:AvengeMedia/dgop";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, home-manager, nixvim, nixwrap, nixos-wsl, ... }@inputs: {

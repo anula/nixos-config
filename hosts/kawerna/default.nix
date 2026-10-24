@@ -45,15 +45,6 @@ in
       ../../users/anula/kubernetes.nix
       ../../users/anula/niri.nix
     ];
-
-    # dgop (DMS's system-monitoring backend) isn't in nixpkgs at all - it's
-    # built from its own flake.
-    #
-    # NB: DMS's own "dms-shell" package and its quickshell dependency used
-    # to need overriding here too (nixos-25.05 lacked go_1_26/quickshell),
-    # but now that the repo's main nixpkgs is 26.05 - which has both -
-    # DMS's own defaults (ambient home-manager pkgs) resolve them directly.
-    programs.dank-material-shell.dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.dgop;
   };
 
   # Handling Steam on system level, since it needs system-level

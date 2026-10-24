@@ -57,6 +57,12 @@
     };
   };
 
+  # Distrust eMudhra's root: its intermediates were issued with trivially
+  # recoverable private keys (Oct 2026). Browsers block them via their own
+  # revocation lists, but curl/git/nix only read this system store.
+  # Must match the cert's label in nixpkgs' cacert exactly.
+  security.pki.caCertificateBlacklist = [ "emSign ECC Root CA - G3" ];
+
   # Home manager global settings
   home-manager = {
     useGlobalPkgs = true;
