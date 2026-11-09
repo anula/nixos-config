@@ -76,9 +76,48 @@ in
     
     # Clipboard
     xclip
+
+    # `dropbox status`, `dropbox exclude`, etc. Talks to the daemon
+    # started by the service below.
+    dropbox-cli
   ];
 
-  services.dropbox.enable = true;
+  # Hand-rolled instead of home-manager's services.dropbox, which can't
+  # work for us:
+  #   - it runs the daemon with HOME=~/.dropbox-hm, a separate, never
+  #     linked account state, not the ~/.dropbox + ~/Dropbox that a
+  #     manual `dropbox start` uses
+  #   - its start script calls `run`, a helper that only exists in
+  #     home-manager activation scripts, so its mkdir/ln setup steps
+  #     fail with "command not found"
+  #   - it blanks DISPLAY and hangs off default.target, i.e. it starts
+  #     before (and without) the graphical session, so there's no tray
+  #     icon and no way to see the account-linking prompt
+  # This runs the real (FHS-wrapped) daemon in the foreground, with the
+  # normal HOME, once the graphical session is up - the same thing a
+  # manual `dropbox start` does. graphical-session.target is reached
+  # under both niri (niri.service binds it) and Plasma.
+  systemd.user.services.dropbox = {
+    Unit = {
+      Description = "Dropbox";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+
+    Service = {
+      ExecStart = "${pkgs.dropbox}/bin/dropbox";
+      ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+      KillMode = "control-group";
+      # Covers it racing the compositor/tray at login.
+      Restart = "on-failure";
+      RestartSec = 5;
+      Nice = 10;
+    };
+
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
 
   # Default applications
   xdg.mimeApps.defaultApplications = {
