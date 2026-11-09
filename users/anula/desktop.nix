@@ -80,10 +80,11 @@ in
 
   services.dropbox.enable = true;
 
-  # Default browser
+  # Default applications
   xdg.mimeApps.defaultApplications = {
     "text/html" = "vivaldi-stable.desktop";
     "x-scheme-handler/http" = "vivaldi-stable.desktop";
     "x-scheme-handler/https" = "vivaldi-stable.desktop";
+    "application/pdf" = "org.kde.okular.desktop";
   };
 }

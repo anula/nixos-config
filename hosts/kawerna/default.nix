@@ -43,6 +43,7 @@ in
       ../../users/anula/ai.nix
       ../../users/anula/desktop.nix
       ../../users/anula/kubernetes.nix
+      ../../users/anula/lilypond.nix
       ../../users/anula/niri.nix
     ];
   };
