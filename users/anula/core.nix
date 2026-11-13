@@ -25,6 +25,10 @@
     restic
     openssl
     pdftk
+    (writers.writePython3Bin "viseca-tax-redact" {
+      libraries = [ python3Packages.pymupdf ];
+      flakeIgnore = [ "E501" "W503" ];
+    } ./scripts/viseca_tax_redact.py)
   ];
 
   # Persistent `nix develop` per directory 
