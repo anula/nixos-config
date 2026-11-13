@@ -24,6 +24,7 @@
     ffmpeg
     restic
     openssl
+    pdftk
   ];
 
   # Persistent `nix develop` per directory 
@@ -81,6 +82,22 @@
         return 1
       }
 
+      # Quick terminal lookup for my own CLI notes: `cheat <tool>` renders
+      # users/anula/docs/<tool>.md (linked into ~/.local/share/cheatsheets),
+      # plain `cheat` lists what's available.
+      cheat () {
+        local dir=~/.local/share/cheatsheets
+        if [ -z "$1" ]; then
+          ls "$dir" | sed 's/\.md$//'
+        elif [ -f "$dir/$1.md" ]; then
+          glow -p "$dir/$1.md"
+        else
+          echo "No cheatsheet for '$1'. Available:"
+          ls "$dir" | sed 's/\.md$//'
+          return 1
+        fi
+      }
+
       if [ -f ~/.config/fancy_prompt.sh ]; then
         source ~/.config/fancy_prompt.sh
       fi
@@ -91,6 +108,10 @@
   home.file.".config/tmux/tmux.conf".source = ./res/tmux.conf;
   home.file.".config/fancy_prompt.sh".source = ./res/fancy_prompt.sh;
   home.file.".vimrc".source = ./res/vimrc;
+  home.file.".local/share/cheatsheets" = {
+    source = ./docs;
+    recursive = true;
+  };
   home.file.".vim/bundle/Vundle.vim" = {
     source = pkgs.vimPlugins.Vundle-vim;
     recursive = true;

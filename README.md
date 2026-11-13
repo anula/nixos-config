@@ -21,6 +21,7 @@ Designed for portability across different hosts (bare-metal and WSL).
     * `ai.nix`: AI agent sandboxes.
     * `kubernetes.nix`: K8s specific toolset.
     * `res/`: Raw dotfiles (vimrc, tmux.conf).
+    * `docs/`: CLI cheatsheets, installed to `~/.local/share/cheatsheets/`; view with `cheat <tool>`.
 
 ## How to Deploy on a New Machine
 
