@@ -73,6 +73,11 @@ pkgs.writeShellScriptBin name ''
     --ro-bind ${pkgs.curl}/bin/curl /bin/curl \
     --ro-bind ${pkgs.gnutar}/bin/tar /bin/tar \
     --ro-bind ${pkgs.findutils}/bin/find /bin/find \
+    --ro-bind ${pkgs.gnused}/bin/sed /bin/sed \
+    --ro-bind ${pkgs.gawk}/bin/gawk /bin/gawk \
+    --ro-bind ${pkgs.gawk}/bin/gawk /bin/awk \
+    --ro-bind ${pkgs.unzip}/bin/unzip /bin/unzip \
+    --ro-bind ${pkgs.libxml2.bin}/bin/xmllint /bin/xmllint \
     --bind "$WORKDIR" /work \
     --bind "$PERSISTENT_CONFIG_DIR" /home/sandboxuser \
     --chdir /work \
